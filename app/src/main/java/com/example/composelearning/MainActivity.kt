@@ -15,6 +15,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,6 +52,10 @@ fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    // expanded variable set as false for onClick.
+    // remember {mutableStateOf} tells compose to remember this value
+    val expanded = remember { mutableStateOf(false)}
+
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
@@ -61,10 +67,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 Text(text = "Hello")
                 Text(text = "$name!")
             }
-            // things on right
-            ElevatedButton(onClick = { /* TODO */}
+            // new onClick logic
+            ElevatedButton(onClick = { expanded.value = !expanded.value}
             ){
-                Text("Show more")
+                Text(if (expanded.value) "Show less" else "Show more")
             }
         }
     }
