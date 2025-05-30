@@ -5,9 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -50,14 +52,20 @@ fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Surface(
         color = MaterialTheme.colorScheme.primary,
-        // vertical and horizontal padding for space around each individual greeting card
-        // basically for each individual text and its background card
         modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
-        Column(modifier = modifier
-            .padding(24.dp)
-            .fillMaxWidth()) {      // stretches row to fit width
-            Text(text = "Hello")
-            Text(text = "$name!")
+
+        // row added for horizontal layout
+        Row(modifier = Modifier.padding(24.dp)) {
+            // things on left (cuz of weight)
+            Column(modifier = modifier.weight(1f)) {
+                Text(text = "Hello")
+                Text(text = "$name!")
+            }
+            // things on right
+            ElevatedButton(onClick = { /* TODO */}
+            ){
+                Text("Show more")
+            }
         }
     }
 }
