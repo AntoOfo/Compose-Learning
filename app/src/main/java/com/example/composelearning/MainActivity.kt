@@ -55,6 +55,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     // expanded variable set as false for onClick.
     // remember {mutableStateOf} tells compose to remember this value
     val expanded = remember { mutableStateOf(false)}
+    // extraPadding variable declared based on button state
+    val extraPadding = if (expanded.value) 48.dp else 0.dp
 
     Surface(
         color = MaterialTheme.colorScheme.primary,
@@ -63,7 +65,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         // row added for horizontal layout
         Row(modifier = Modifier.padding(24.dp)) {
             // things on left (cuz of weight)
-            Column(modifier = modifier.weight(1f)) {
+            Column(modifier = modifier
+                .weight(1f)
+                // bottom padding for extraPadding
+                .padding(bottom = extraPadding)) {
                 Text(text = "Hello")
                 Text(text = "$name!")
             }
