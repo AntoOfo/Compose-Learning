@@ -1,9 +1,11 @@
 package com.example.composelearning
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,7 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.material3.Button
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composelearning.ui.theme.ComposeLearningTheme
@@ -34,57 +40,117 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-// clean up onCreate by using a separate composable to hold others that can be reused
+// top level composable that controls which screen to show
 @Composable
-fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "Compose")) {
-    Surface(
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.background
+fun MyApp(modifier: Modifier = Modifier) {
+    // remember the state to track if onboarding screen should be shown
+    var shouldShowOnboarding by remember { mutableStateOf(true) }
+
+    Surface(modifier) {
+        // show onboarding screen or greeting screen based on state
+        if (shouldShowOnboarding) {
+            OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
+        } else {
+            Greetings()
+        }
+    }
+}
+
+// Onboarding screen composable
+@Composable
+fun OnboardingScreen(
+    onContinueClicked: () -> Unit, // function to be called when button is clicked
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // this padding is for all the whole column in the apps background
-        Column(modifier = modifier.padding(vertical = 4.dp)) {
-            for (name in names) {
-                Greeting(name = name)
-            }
+        Text("Welcome to the Basics Codelab!")
+
+        Button(
+            modifier = Modifier.padding(vertical = 24.dp),
+            onClick = onContinueClicked
+        ) {
+            Text("Continue")
+        }
+    }
+}
+
+// greets a list of names by making multiple greeting cards
+@Composable
+private fun Greetings(
+    modifier: Modifier = Modifier,
+    names: List<String> = listOf("World", "Compose")
+) {
+    Column(modifier = modifier.padding(vertical = 4.dp)) {
+        // loop through names and display a greeting composable for each
+        for (name in names) {
+            Greeting(name = name)
         }
     }
 }
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    // expanded variable set as false for onClick.
-    // remember {mutableStateOf} tells compose to remember this value
-    val expanded = remember { mutableStateOf(false)}
-    // extraPadding variable declared based on button state
+    // remember the expanded state
+    val expanded = remember { mutableStateOf(false) }
+
+    // adjust padding based on expanded state
     val extraPadding = if (expanded.value) 48.dp else 0.dp
 
+    // surface for card styling
     Surface(
         color = MaterialTheme.colorScheme.primary,
-        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
-
-        // row added for horizontal layout
+        modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
+        // horizontal layout
         Row(modifier = Modifier.padding(24.dp)) {
-            // things on left (cuz of weight)
-            Column(modifier = modifier
-                .weight(1f)
-                // bottom padding for extraPadding
-                .padding(bottom = extraPadding)) {
+            // left side column with text
+            Column(
+                modifier = modifier
+                    .weight(1f)
+                    .padding(bottom = extraPadding) // padding based on state
+            ) {
                 Text(text = "Hello")
                 Text(text = "$name!")
             }
-            // new onClick logic
-            ElevatedButton(onClick = { expanded.value = !expanded.value}
-            ){
+
+            // right side button
+            ElevatedButton(
+                onClick = { expanded.value = !expanded.value }
+            ) {
                 Text(if (expanded.value) "Show less" else "Show more")
             }
         }
     }
 }
 
-@Preview(showBackground = true, widthDp = 320)  // widthDp to replicate a small phones width
+// preview for Greetings screen
+@Preview(showBackground = true, widthDp = 320)
 @Composable
-fun GreetingPreview() {
+fun GreetingsPreview() {
     ComposeLearningTheme {
-        MyApp()
+        Greetings()
+    }
+}
+
+// preview for Onboarding screen
+@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Composable
+fun OnboardingPreview() {
+    ComposeLearningTheme {
+        // Empty lambda since preview doesn't need actual behavior
+        OnboardingScreen(onContinueClicked = {})
+    }
+}
+
+// preview for MyApp - shows either onboarding or greetings
+@Preview(showBackground = true, widthDp = 320)
+@Composable
+fun MyAppPreview() {
+    ComposeLearningTheme {
+        MyApp(Modifier.fillMaxSize())
     }
 }
