@@ -31,12 +31,16 @@ class MainActivity : ComponentActivity() {
 
 // clean up onCreate by using a separate composable to hold others that can be reused
 @Composable
-fun MyApp(modifier: Modifier = Modifier) {
+fun MyApp(modifier: Modifier = Modifier, names: List<String> = listOf("World", "Compose")) {
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.background
     ) {
-        Greeting("Android")
+        Column(modifier) {
+            for (name in names) {
+                Greeting(name = name)
+            }
+        }
     }
 }
 
