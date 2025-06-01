@@ -5,6 +5,9 @@ import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +31,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.example.composelearning.ui.theme.ComposeLearningTheme
 
@@ -99,10 +103,16 @@ private fun Greetings(
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     // remember the expanded state
-    val expanded = remember { mutableStateOf(false) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
 
-    // adjust padding based on expanded state
-    val extraPadding = if (expanded.value) 48.dp else 0.dp
+    // (ANIMATED) adjust padding based on expanded state
+    val extraPadding by animateDpAsState(
+        if (expanded) 48.dp else 0.dp,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
 
     // surface for card styling
     Surface(
@@ -113,9 +123,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         Row(modifier = Modifier.padding(24.dp)) {
             // left side column with text
             Column(
-                modifier = modifier
+                modifier = Modifier
                     .weight(1f)
-                    .padding(bottom = extraPadding) // padding based on state
+                    .padding(bottom = extraPadding.coerceAtLeast(0.dp)) // padding based on state, never go below 0.dp
             ) {
                 Text(text = "Hello")
                 Text(text = "$name!")
@@ -123,9 +133,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
             // right side button
             ElevatedButton(
-                onClick = { expanded.value = !expanded.value }
+                onClick = { expanded = !expanded }
             ) {
-                Text(if (expanded.value) "Show less" else "Show more")
+                Text(if (expanded) "Show less" else "Show more")
             }
         }
     }
