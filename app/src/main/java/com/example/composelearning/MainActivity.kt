@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.shape.CircleShape
@@ -27,6 +28,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -97,6 +100,45 @@ fun AlignYourBodyElement(
 
     }
 }
+
+@Composable
+fun FavoriteCollectionCard(
+    @DrawableRes drawable: Int,
+    @StringRes text: Int,
+    modifier: Modifier = Modifier) {
+
+    Surface(
+        shape = MaterialTheme.shapes.medium,        // curved border
+        color = MaterialTheme.colorScheme.surfaceVariant,    // colour of surface
+        modifier = modifier) {
+
+        Row(verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(255.dp)) {       // length of row
+            Image(
+                painter = painterResource(drawable),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(80.dp)
+            )
+            Text(
+                text = stringResource(text),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun FavoriteCollectionCardPreview() {
+    FavoriteCollectionCard(
+        text = R.string.fc1_nature_meditations,
+        drawable = R.drawable.leaves,
+        modifier = Modifier.padding(8.dp))
+}
+
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun AlignYourBodyElementPreview() {
