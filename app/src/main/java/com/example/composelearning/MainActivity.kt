@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.Button
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,8 +44,8 @@ class MainActivity : ComponentActivity() {
 // top level composable that controls which screen to show
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
-    // remember the state to track if onboarding screen should be shown
-    var shouldShowOnboarding by remember { mutableStateOf(true) }
+    // rememberSaveable ensures that onBoarding screen isnt shown again if app is rotated or whatever
+    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
 
     Surface(modifier) {
         // show onboarding screen or greeting screen based on state
