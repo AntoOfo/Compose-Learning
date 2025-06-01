@@ -34,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 import com.example.composelearning.ui.theme.ComposeLearningTheme
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,7 +129,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp)) // padding based on state, never go below 0.dp
             ) {
                 Text(text = "Hello")
-                Text(text = "$name!")
+                Text(text = "$name!", style = MaterialTheme.typography.headlineMedium)
             }
 
             // right side button
@@ -140,6 +141,14 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         }
     }
 }
+
+// dark mode preview
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "GreetingPreviewDark"
+)
 
 // preview for Greetings screen
 @Preview(showBackground = true, widthDp = 320)
