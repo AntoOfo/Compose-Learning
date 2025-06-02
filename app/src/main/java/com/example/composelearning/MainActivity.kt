@@ -105,6 +105,7 @@ fun AlignYourBodyElement(
     }
 }
 
+// lazyrow for alignyourbody elements with data fetched from Data.kt
 @Composable
 fun AlignYourBodyRow(modifier: Modifier = Modifier) {
     // scrollable row
