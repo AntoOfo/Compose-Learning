@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -172,7 +173,7 @@ fun FavoriteCollectionsGrid(modifier: Modifier) {
     }
 }
 
-// composable for the home section (not the top search bar or bottom nav bar)
+// composable for the home section (no top search bar or bottom nav bar)
 @Composable
 fun HomeSection(
     @StringRes title: Int,      // title text
@@ -186,6 +187,23 @@ fun HomeSection(
                 .paddingFromBaseline(bottom = 16.dp, top = 40.dp)
                 .padding(horizontal = 16.dp))
         content()                      // passed in composable
+    }
+}
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier){
+    Column(modifier) {
+        Spacer(Modifier.height(16.dp))   // spacer literally just makes space
+        SearchBar(Modifier.padding(horizontal = 16.dp))
+        // home section for align body part
+        HomeSection(title = R.string.align_your_body) {
+            AlignYourBodyRow()
+        }
+        // home section for collections part
+        HomeSection(title = R.string.favorite_collections) {
+            FavoriteCollectionsGrid(modifier = Modifier)
+        }
+        Spacer(Modifier.height(16.dp))
     }
 }
 
