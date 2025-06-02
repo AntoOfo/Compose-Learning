@@ -12,7 +12,9 @@ import androidx.compose.foundation.content.MediaType.Companion.Text
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -29,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -77,7 +81,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
     )
 }
 
-// alignyourbody element composable (circle image with text below)
+// ui for alignyourbody element composable (circle image with text below)
 @Composable
 fun AlignYourBodyElement(
     @DrawableRes drawable: Int,
@@ -101,6 +105,20 @@ fun AlignYourBodyElement(
     }
 }
 
+@Composable
+fun AlignYourBodyRow(modifier: Modifier = Modifier) {
+    // scrollable row
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),  // space between elements
+        contentPadding = PaddingValues(horizontal = 16.dp),  // elements wont clip into padding
+        modifier = modifier) {
+        items(alignYourBodyData) { item ->  // for each item in the data, invoke the method for the element
+            AlignYourBodyElement(item.drawable, item.text)  // in data.kt
+        }
+    }
+}
+
+// ui for favoritecollectioncard element composable
 @Composable
 fun FavoriteCollectionCard(
     @DrawableRes drawable: Int,
@@ -130,11 +148,28 @@ fun FavoriteCollectionCard(
     }
 }
 
+// preview for alignbody row, reused logic with placeholder value just for preview
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun AlignYourBodyRowPreview(modifier: Modifier = Modifier) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier) {
+        items(8) {
+            AlignYourBodyElement(
+                drawable = R.drawable.tabata, // simple, preview-safe drawable
+                text = R.string.Tabata        // dummy string
+            )
+        }
+    }
+}
+
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun FavoriteCollectionCardPreview() {
     FavoriteCollectionCard(
-        text = R.string.fc1_nature_meditations,
+        text = R.string.NatureMeditations,
         drawable = R.drawable.leaves,
         modifier = Modifier.padding(8.dp))
 }
@@ -143,7 +178,7 @@ fun FavoriteCollectionCardPreview() {
 @Composable
 fun AlignYourBodyElementPreview() {
     AlignYourBodyElement(
-        text = R.string.ab1_inversions,
+        text = R.string.Inversions,
         drawable = R.drawable.ab1_inversion,
         modifier = Modifier.padding(8.dp)
     )

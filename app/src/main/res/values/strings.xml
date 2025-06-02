@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Compose Learning</string>
-    <string name="ab1_inversions">Inversions</string>
-    <string name="fc1_nature_meditations">Nature meditations</string>
+    <string name="Inversions">Inversions</string>
+    <string name="NatureMeditations">Nature meditations</string>
+    <string name="QuickYoga">Quick yoga</string>
+    <string name="Stretching">Stretching</string>
+    <string name="Tabata">Tabata</string>
+    <string name="Hiit">HIIT</string>
+    <string name="Natal">Pre-natal yoga</string>
 </resources>
