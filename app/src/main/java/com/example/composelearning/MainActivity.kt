@@ -38,7 +38,10 @@ import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -54,7 +57,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeLearningTheme {
-
             }
         }
     }
@@ -158,7 +160,7 @@ fun FavoriteCollectionCard(
 
 // lazyhorizontalgrid for collection card elements with data fetched from Data.kt
 @Composable
-fun FavoriteCollectionsGrid(modifier: Modifier) {
+fun FavoriteCollectionsGrid(modifier: Modifier = Modifier) {
 
     LazyHorizontalGrid(
         rows = GridCells.Fixed(2),   // fixed amount of rows for the grid
@@ -192,7 +194,8 @@ fun HomeSection(
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier){
-    Column(modifier) {
+    // adds scrolling for devices that arent tall enough
+    Column(modifier.verticalScroll(rememberScrollState())) {
         Spacer(Modifier.height(16.dp))   // spacer literally just makes space
         SearchBar(Modifier.padding(horizontal = 16.dp))
         // home section for align body part
@@ -201,7 +204,7 @@ fun HomeScreen(modifier: Modifier = Modifier){
         }
         // home section for collections part
         HomeSection(title = R.string.favorite_collections) {
-            FavoriteCollectionsGrid(modifier = Modifier)
+            FavoriteCollectionsGrid()
         }
         Spacer(Modifier.height(16.dp))
     }
@@ -215,41 +218,18 @@ fun HomeSectionPreview() {
     }
 }
 
-// preview for FavoriteCollectionsGrid, reused logic with placeholder value just for preview
+// preview for FavoriteCollectionsGrid
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun FavoriteCollectionsGridPreview(modifier: Modifier = Modifier) {
-    LazyHorizontalGrid(
-        rows = GridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        modifier = modifier.height(168.dp)
-    ) {
-        items(6) {
-            FavoriteCollectionCard(
-                drawable = R.drawable.mantra,
-                text = R.string.Mantras
-            )
-        }
-    }
+    FavoriteCollectionsGrid()
 }
 
-// preview for alignbody row, reused logic with placeholder value just for preview
+// preview for alignbody row
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun AlignYourBodyRowPreview(modifier: Modifier = Modifier) {
-    LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        modifier = modifier) {
-        items(8) {
-            AlignYourBodyElement(
-                drawable = R.drawable.tabata, // simple, preview-safe drawable
-                text = R.string.Tabata        // dummy string
-            )
-        }
-    }
+    AlignYourBodyRow()
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
@@ -257,7 +237,7 @@ fun AlignYourBodyRowPreview(modifier: Modifier = Modifier) {
 fun FavoriteCollectionCardPreview() {
     FavoriteCollectionCard(
         text = R.string.NatureMeditations,
-        drawable = R.drawable.leaves,
+        drawable = R.drawable.leavespng,
         modifier = Modifier.padding(8.dp))
 }
 

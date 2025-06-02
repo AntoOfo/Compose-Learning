@@ -13,18 +13,18 @@ data class DrawableStringPair(
 val alignYourBodyData = listOf(
     DrawableStringPair(R.drawable.ab1_inversion, R.string.Inversions),
     DrawableStringPair(R.drawable.quickyoga, R.string.QuickYoga),
-    DrawableStringPair(R.drawable.stretch, R.string.Stretching),
-    DrawableStringPair(R.drawable.tabata, R.string.Tabata),
-    DrawableStringPair(R.drawable.hiit, R.string.Hiit),
-    DrawableStringPair(R.drawable.natal, R.string.Natal)
+    DrawableStringPair(R.drawable.stretchpng, R.string.Stretching),
+    DrawableStringPair(R.drawable.tabatapng, R.string.Tabata),
+    DrawableStringPair(R.drawable.hiitpng, R.string.Hiit),
+    DrawableStringPair(R.drawable.natalpng, R.string.Natal)
 )
 
 // defines images and string resources we'll use in our Lazy Horizontal Grid
 val favoriteCollectionsData = listOf(
-    DrawableStringPair(R.drawable.leaves, R.string.NatureMeditations),
-    DrawableStringPair(R.drawable.mantra, R.string.Mantras),
-    DrawableStringPair(R.drawable.stress, R.string.Stress),
-    DrawableStringPair(R.drawable.massage, R.string.Massage),
-    DrawableStringPair(R.drawable.overwhelmed, R.string.Overwhelmed),
-    DrawableStringPair(R.drawable.nightly, R.string.Nightly)
+    DrawableStringPair(R.drawable.leavespng, R.string.NatureMeditations),
+    DrawableStringPair(R.drawable.mantrapng, R.string.Mantras),
+    DrawableStringPair(R.drawable.stresspng, R.string.Stress),
+    DrawableStringPair(R.drawable.massagepng, R.string.Massage),
+    DrawableStringPair(R.drawable.overwhelmedpng, R.string.Overwhelmed),
+    DrawableStringPair(R.drawable.nightlypng, R.string.Nightly)
 )
