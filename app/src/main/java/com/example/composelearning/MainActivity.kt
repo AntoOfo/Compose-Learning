@@ -172,6 +172,31 @@ fun FavoriteCollectionsGrid(modifier: Modifier) {
     }
 }
 
+// composable for the home section (not the top search bar or bottom nav bar)
+@Composable
+fun HomeSection(
+    @StringRes title: Int,      // title text
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit) {   // composable to pass in
+
+    Column(modifier) {
+        Text(stringResource(title),     // passed in title
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier
+                .paddingFromBaseline(bottom = 16.dp, top = 40.dp)
+                .padding(horizontal = 16.dp))
+        content()                      // passed in composable
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun HomeSectionPreview() {
+    HomeSection(R.string.align_your_body) {
+        AlignYourBodyRowPreview()
+    }
+}
+
 // preview for FavoriteCollectionsGrid, reused logic with placeholder value just for preview
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
