@@ -7,4 +7,9 @@
     <string name="Tabata">Tabata</string>
     <string name="Hiit">HIIT</string>
     <string name="Natal">Pre-natal yoga</string>
+    <string name="Mantras">Short mantras</string>
+    <string name="Stress">Stress and anxiety</string>
+    <string name="Massage">Self massage</string>
+    <string name="Overwhelmed">Overwhelmed</string>
+    <string name="Nightly">Nightly wind down</string>
 </resources>

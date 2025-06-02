@@ -18,3 +18,13 @@ val alignYourBodyData = listOf(
     DrawableStringPair(R.drawable.hiit, R.string.Hiit),
     DrawableStringPair(R.drawable.natal, R.string.Natal)
 )
+
+// defines images and string resources we'll use in our Lazy Horizontal Grid
+val favoriteCollectionsData = listOf(
+    DrawableStringPair(R.drawable.leaves, R.string.NatureMeditations),
+    DrawableStringPair(R.drawable.mantra, R.string.Mantras),
+    DrawableStringPair(R.drawable.stress, R.string.Stress),
+    DrawableStringPair(R.drawable.massage, R.string.Massage),
+    DrawableStringPair(R.drawable.overwhelmed, R.string.Overwhelmed),
+    DrawableStringPair(R.drawable.nightly, R.string.Nightly)
+)

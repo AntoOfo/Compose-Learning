@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.shape.CircleShape
@@ -32,7 +33,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -132,7 +136,9 @@ fun FavoriteCollectionCard(
         modifier = modifier) {
 
         Row(verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.width(255.dp)) {       // length of row
+            modifier = Modifier
+                .width(255.dp)
+                .height(80.dp)) {       // length of row
             Image(
                 painter = painterResource(drawable),
                 contentDescription = null,
@@ -144,6 +150,43 @@ fun FavoriteCollectionCard(
                 text = stringResource(text),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+    }
+}
+
+// lazyhorizontalgrid for collection card elements with data fetched from Data.kt
+@Composable
+fun FavoriteCollectionsGrid(modifier: Modifier) {
+
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),   // fixed amount of rows for the grid
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.height(168.dp)
+    ) {
+        items(favoriteCollectionsData) { item ->
+            FavoriteCollectionCard(item.drawable, item.text)
+        }
+    }
+}
+
+// preview for FavoriteCollectionsGrid, reused logic with placeholder value just for preview
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun FavoriteCollectionsGridPreview(modifier: Modifier = Modifier) {
+    LazyHorizontalGrid(
+        rows = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.height(168.dp)
+    ) {
+        items(6) {
+            FavoriteCollectionCard(
+                drawable = R.drawable.mantra,
+                text = R.string.Mantras
             )
         }
     }
