@@ -307,7 +307,7 @@ private fun NavigationRail(modifier: Modifier = Modifier) {
         }
     }
 }
-
+// apps final portrait look
 @Composable
 fun MyAppPortrait() {
     ComposeLearningTheme {
@@ -319,11 +319,27 @@ fun MyAppPortrait() {
     }
 }
 
+// apps landscape look
+@Composable
+fun MyAppLandscape() {
+    ComposeLearningTheme {
+        Row {
+            NavigationRail()
+            HomeScreen()
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE, widthDp = 860)
+@Composable
+fun MyAppLandscapePreview() {
+    MyAppLandscape()
+}
+
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun NavigationRailPreview() {
         NavigationRail()
-
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
