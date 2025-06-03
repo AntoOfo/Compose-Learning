@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
@@ -44,6 +45,8 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationRail
+import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.remember
@@ -64,6 +67,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeLearningTheme {
+                MyAppPortrait()
             }
         }
     }
@@ -255,6 +259,56 @@ private fun BottomNavigation(modifier: Modifier = Modifier) {
 }
 
 @Composable
+private fun NavigationRail(modifier: Modifier = Modifier) {
+    ComposeLearningTheme {
+        // navigation rail
+        NavigationRail(
+            modifier = modifier.padding(
+                start = 8.dp,
+                end = 8.dp
+            ),  // padding on both sides of rail (thicker)
+            containerColor = Color(0xFFF5F0EE)
+        ) {
+            Column(
+                modifier = modifier.fillMaxHeight(),  // fill height of screen
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                NavigationRailItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(stringResource(R.string.bottom_navigation_home))
+                    },
+                    selected = true,
+                    onClick = {}
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                NavigationRailItem(
+                    icon = {
+                        Icon(
+                            imageVector = Icons.Default.AccountCircle,
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(stringResource(R.string.bottom_navigation_profile))
+                    },
+                    selected = false,
+                    onClick = {}
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun MyAppPortrait() {
     ComposeLearningTheme {
         // scaffold with "bottomBar" slot to put our BottomNavigation
@@ -263,6 +317,13 @@ fun MyAppPortrait() {
             HomeScreen(Modifier.padding(padding))
         }
     }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun NavigationRailPreview() {
+        NavigationRail()
+
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
