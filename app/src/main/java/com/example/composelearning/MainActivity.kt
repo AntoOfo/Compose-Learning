@@ -40,10 +40,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -191,7 +197,7 @@ fun HomeSection(
         content()                      // passed in composable
     }
 }
-
+// home screen with searchbar and both home sections
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier){
     // adds scrolling for devices that arent tall enough
@@ -208,6 +214,55 @@ fun HomeScreen(modifier: Modifier = Modifier){
         }
         Spacer(Modifier.height(16.dp))
     }
+}
+
+@Composable
+private fun BottomNavigation(modifier: Modifier = Modifier) {
+    // navigation bar element
+    NavigationBar(
+        containerColor = Color(0x99ACA49C),
+        modifier = modifier) {
+        // first navigation bar item
+        NavigationBarItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Home,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(text = stringResource(R.string.bottom_navigation_home))
+            },
+            selected = true,
+            onClick = {}
+        )
+        // second navigation bar item
+        NavigationBarItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.AccountCircle,
+                    contentDescription = null
+                )
+            },
+            label = {
+                Text(text = stringResource(R.string.bottom_navigation_profile))
+            },
+            selected = false,
+            onClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun BottomNavigationPreview() {
+    BottomNavigation()
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun ScreenContentPreview() {
+    HomeScreen()
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
