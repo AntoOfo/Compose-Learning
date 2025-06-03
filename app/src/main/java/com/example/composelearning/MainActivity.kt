@@ -49,6 +49,10 @@ import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
@@ -62,12 +66,14 @@ import com.example.composelearning.ui.theme.ComposeLearningTheme
 
 
 class MainActivity : ComponentActivity() {
+    @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ComposeLearningTheme {
-                MyAppPortrait()
+                val windowSizeClass = calculateWindowSizeClass(this)
+                MyApp(windowSizeClass)
             }
         }
     }
@@ -326,6 +332,20 @@ fun MyAppLandscape() {
         Row {
             NavigationRail()
             HomeScreen()
+        }
+    }
+}
+
+// this actually changes the ui to portrait or landscape depending on if the user turns phone to portrait or landscape
+@Composable
+fun MyApp(windowSize: WindowSizeClass) {
+
+    when (windowSize.widthSizeClass) {
+        WindowWidthSizeClass.Compact -> {
+            MyAppPortrait()
+        }
+        WindowWidthSizeClass.Expanded -> {
+            MyAppLandscape()
         }
     }
 }
