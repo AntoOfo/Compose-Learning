@@ -44,6 +44,7 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -220,7 +221,7 @@ fun HomeScreen(modifier: Modifier = Modifier){
 private fun BottomNavigation(modifier: Modifier = Modifier) {
     // navigation bar element
     NavigationBar(
-        containerColor = Color(0x99ACA49C),
+        containerColor = Color(0x55ACA49C),
         modifier = modifier) {
         // first navigation bar item
         NavigationBarItem(
@@ -251,6 +252,23 @@ private fun BottomNavigation(modifier: Modifier = Modifier) {
             onClick = {}
         )
     }
+}
+
+@Composable
+fun MyAppPortrait() {
+    ComposeLearningTheme {
+        // scaffold with "bottomBar" slot to put our BottomNavigation
+        Scaffold(bottomBar = { BottomNavigation() },
+            ) { padding ->          // setting our content to be the HomeScreen
+            HomeScreen(Modifier.padding(padding))
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
+@Composable
+fun MyAppPortraitPreview() {
+    MyAppPortrait()
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
